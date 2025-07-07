@@ -1,4 +1,4 @@
-# Gemini Workflow Runner
+# Note Processor Workflow
 
 This project allows you to run a workflow using Gemini 2.0 Flash to process your notes.
 
