@@ -7,7 +7,7 @@ This project allows you to run a workflow using Gemini 2.0 Flash to process your
 1. **Start the Docker Compose environment**
 
 ```bash
-   docker-compose up -d
+docker-compose up -d
 ```
 
 2. **Create a new workflow**
