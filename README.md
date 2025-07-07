@@ -1,41 +1,74 @@
-# Note Processor Workflow
+# 📝 Note Processor Workflow
 
-This project allows you to run a workflow using Gemini 2.0 Flash to process your notes.
+Process your notes efficiently using **Gemini 2.0 Flash** in a streamlined Dockerized workflow.
 
-## 🚀 How to Use
+## 🚀 Quick Start
 
-1. **Start the Docker Compose environment**
+Follow these steps to get up and running:
+
+### 1. Start the Docker Environment
+
+Launch the environment with:
 
 ```bash
 docker-compose up -d
 ```
 
-2. **Create a new workflow**
+---
 
-   Open the web interface and create a new workflow.
+### 2. Open the Web Interface
 
-3. **Import the workflow from file**
+Access the interface in your browser to manage workflows.
 
-   Use the interface to import the workflow file provided in this repository.
+---
 
-4. **Create an API key for Gemini 2.0 Flash**
+### 3. Import the Workflow File
 
-   Visit [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey) and create an API key for **gemini-2.0-flash**.
+Use the interface to import the prebuilt workflow file included in this repository.
 
-5. **Add your Gemini credentials to the workflow**
+---
 
-   In the Gemini nodes of the workflow, insert your API key in the credentials section.
+### 4. Create an API Key for Gemini 2.0 Flash
 
-6. **Insert your notes**
+Generate an API key from:
 
-   Place your input notes in the `data/input` file in the container’s file system.
+👉 [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 
-7. **Run the workflow**
+Make sure to select **gemini-2.0-flash** as the model.
 
-   Execute the workflow from the interface.
+---
 
-8. **Get your results**
+### 5. Add Your Gemini Credentials
 
-   Retrieve the output from the `data/output` file.
+In the Gemini nodes of the imported workflow:
+
+* Open the node settings
+* Paste your API key into the **credentials** section
+
+---
+
+### 6. Add Your Input Notes
+
+Place your notes in the following path in your computer:
+
+```
+data/input
+```
+
+---
+
+### 7. Run the Workflow
+
+Execute the workflow through the web interface.
+
+---
+
+### 8. Retrieve Your Results
+
+Find your processed notes in:
+
+```
+data/output
+```
 
 Enjoy
