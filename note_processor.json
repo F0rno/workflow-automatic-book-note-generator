@@ -1,0 +1,306 @@
+{
+  "name": "Automatizador de apuntes",
+  "nodes": [
+    {
+      "parameters": {
+        "fileSelector": "/data/input",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        120,
+        -575
+      ],
+      "id": "f314ded6-35bb-4383-b42c-6e6e0dc71328",
+      "name": "Read/Write Files from Disk",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "notesInFlow": false,
+      "notes": "Reads the raw notes taken by the user from the book."
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "### 🔹 **Fase 1: Parseo en entradas Markdown**\n\nPor cada cita, realiza lo siguiente:\n\n1. Genera un **título reflexivo** que capture el **significado profundo o la idea clave** de la cita. El título debe ir precedido de `##`, como en Markdown.\n2. Coloca la cita completa dentro de un bloque de cita Markdown, usando `>` al inicio de cada línea.\n3. Si una cita está dividida por el formato del PDF (por salto de página u otro corte artificial), **fusiónala correctamente antes de procesarla**.\n4. Encapsula cada entrada entre separadores `---`, arriba y abajo. (NO USES MÁS DE UN ESPACIO DE SEPARACIÓN PARA NINGUN ELEMENTO, SIGUE EL EJEMPLO 1 EN TODAS LAS SEPARACIONES)\n\n**Formato obligatorio por entrada:**\n\n---\n\n## Título reflexivo que sintetiza la idea central\n\n> Texto literal de la cita. Cada línea debe comenzar con \">\".  \n> Si el texto ocupa varias líneas, continúa el formato de cita en todas ellas.  \n> Mantén el estilo original del autor, sin modificar ni resumir la cita.  \n\n---\n\n### ⚠️ Importante\n\n- **NO OMITAS NINGUNA CITA.**\n- **NO RESPONDAS NADA MÁS QUE LO SOLICITADO.**\n- El objetivo es procesar todo el contenido de un libro de forma ordenada, clara y lista para usarse en un sistema de notas como Obsidian o Zettelkasten.\n- Respeta el formato dado, no añadas más de un espacio de la barra de cierre al titulo, del titulo a la cita y de la cita a la barra que cierra.\n- Ignora el titulo del libro, si lo ves no lo pongas. Puedes usarlo para guiarte pero NO LO PONGAS en el resultado."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -575
+      ],
+      "id": "a8cca8f8-bccd-479a-bcb7-b772dafa0d7d",
+      "name": "AI Agent",
+      "notes": "This prompt is the core of the note-taking process; it generates the primary concepts of the book based on the user's notes."
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        980,
+        -660
+      ],
+      "id": "8714fdc9-e626-419e-93bd-ef8bc87327a0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ctHseSEuvsRthBGI",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "destinationKey": "chatInput",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        340,
+        -575
+      ],
+      "id": "df3b2fac-1fb8-447f-ba9d-7ddd691d315e",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        580,
+        -380
+      ],
+      "id": "d752d625-bf87-4000-9ee6-39939a138a6a",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ctHseSEuvsRthBGI",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1312,
+        -575
+      ],
+      "id": "4df5ed9f-7fe5-485c-8d7a-1c3e1287a1d5",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/data/output",
+        "dataPropertyName": "=data",
+        "options": {
+          "append": true
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1752,
+        -575
+      ],
+      "id": "f35428be-b481-450c-ad5c-f45b1a38a585",
+      "name": "Read/Write Files from Disk1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1532,
+        -575
+      ],
+      "id": "e9121fae-0988-4989-8dfd-87cb499b67b8",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "### 🔹 **Fase 2: Índice de enlaces internos para Obsidian**\n\nUna vez generadas todas las entradas:\n\n1. Recorre el documento generado **en orden** y detecta todos los títulos de nivel `##`.\n2. Por cada título, genera un ítem de lista con el formato:\n   `- [[#Título exactamente como aparece]]`\n3. **Mantén el orden** original en el que aparecen los títulos.\n4. **No modifiques los títulos**. Reproduce cada uno exactamente como está escrito.\n5. No añadas ningún contenido adicional, comentario ni explicación.\n\n**Formato obligatorio de salida al final del todo:**\n\n- [[#Título de la entrada 1]]\n- [[#Título de la entrada 2]]\n- [[#Título de la entrada 3]]\n...\n\\n\n---"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -820
+      ],
+      "id": "c2557c2c-482a-4ac3-866d-dff12ca63a83",
+      "name": "AI Agent1",
+      "notes": "This is the core concept collector. It moves the core concepts to the beginning of the file and links them to the original citations."
+    },
+    {
+      "parameters": {
+        "command": "> /data/output"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        -740
+      ],
+      "id": "c0c4558e-7d66-4014-91dc-84e65b29b681",
+      "name": "Execute Command",
+      "notes": "Due to an implementation issue with the final 'Write to File' module (which writes two branches into a single file), we need to clear the output file before writing to it."
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        -575
+      ],
+      "id": "06f36e4d-328e-4bc7-a176-fe8f26d3f6cc",
+      "name": "When clicking ‘Execute workflow’",
+      "notes": "Start."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bd630a76-024d-44d0-b58a-76f12ae86db3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "054f5effe4592ce30a1bc243e7c24862f21c05f7cbd48923793db34e2b72f5f5"
+  },
+  "id": "qtzrffvedPJ0hjJn",
+  "tags": []
+}
