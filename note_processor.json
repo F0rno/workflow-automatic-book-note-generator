@@ -108,7 +108,7 @@
         "promptType": "define",
         "text": "={{ $json.output }}",
         "options": {
-          "systemMessage": "# **Índice de enlaces internos para Obsidian**\n\nUna vez generadas todas las entradas:\n\n1. Recorre el documento generado **en orden** y detecta todos los títulos de nivel `##`.\n2. Por cada título, genera un ítem de lista con el formato:\n   `- [[#Título exactamente como aparece]]`\n3. **Mantén el orden** original en el que aparecen los títulos.\n4. **No modifiques los títulos**. Reproduce cada uno exactamente como está escrito.\n5. No añadas ningún contenido adicional, comentario ni explicación.\n\n**Formato obligatorio de salida al final del todo:**\n\n- [[#Título de la entrada 1]]\n- [[#Título de la entrada 2]]\n- [[#Título de la entrada 3]]\n...\n\\n\n"
+          "systemMessage": "# **Índice de enlaces internos para Obsidian**\n\nUna vez generadas todas las entradas:\n\n1. Recorre el documento generado **en orden** y detecta todos los títulos de nivel `##`.\n2. Por cada título, genera un ítem de lista con el formato:\n   `- [[#Título exactamente como aparece]]`\n3. **Mantén el orden** original en el que aparecen los títulos.\n4. **No modifiques los títulos**. Reproduce cada uno exactamente como está escrito.\n5. No añadas ningún contenido adicional, comentario ni explicación.\n\n**Formato obligatorio de salida al final del todo:**\n\n- [[#Título de la entrada 1]]\n- [[#Título de la entrada 2]]\n- [[#Título de la entrada 3]]\n...\n\\n\n---"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -183,7 +183,7 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "Tarea:\nTengo una o más citas extraídas de un libro, copiadas desde un PDF y guardadas en Zotero. Estas citas a veces incluyen texto basura (como “Página X” o URLs promocionales como “www.lecturalandia.com”) y, en ocasiones, una única cita ha quedado separada en dos fragmentos consecutivos debido a un salto forzado por el formato del PDF.\n\nQuiero que:\n\nLimpies todo el texto eliminando restos irrelevantes (números de página, URLs, (Nombre, p. X)).\n\nDetectes si varias citas deberían ser una sola (por ejemplo, si son fragmentos que siguen en continuidad temática o gramatical, separados solo artificialmente).\n\nFusiones las citas separadas cuando tenga sentido, para que quede como una cita fluida, bien redactada y sin cortes abruptos.\n\nDevuelvas el resultado como citas limpias separadas por 1 salto de linea cada una."
+          "systemMessage": "Tarea:\nTengo una o más citas extraídas de un libro, copiadas desde un PDF y guardadas en Zotero. Estas citas a veces incluyen texto basura (como “Página X” o URLs promocionales como “www.lecturalandia.com”) y, en ocasiones, una única cita ha quedado separada en dos fragmentos consecutivos debido a un salto forzado por el formato del PDF.\n\nQuiero que:\n\nLimpia todo el texto eliminando restos irrelevantes (números de página, URLs, (Nombre, p. X)).\n\nDetecta si varias citas deberían ser una sola (por ejemplo, si son fragmentos que siguen en continuidad temática o gramatical, separados solo artificialmente).\n\nFusiones las citas separadas cuando tenga sentido, para que quede como una cita fluida, bien redactada y sin cortes abruptos.\n\nNo cambies las citas originales.\n\nDevuelvas el resultado como citas limpias separadas por 1 salto de linea cada una."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -241,7 +241,7 @@
         "promptType": "define",
         "text": "={{ $json.output }}",
         "options": {
-          "systemMessage": "Tarea:\nTengo varios grupos de citas agrupadas temáticamente. Ahora quiero formatearlas para que estén listas para convertirse en apuntes estructurados en Markdown.\n\nObjetivo:\n\nEncapsular correctamente cada grupo de citas con un formato uniforme que facilite su lectura y posterior transformación en apuntes temáticos.\n\nInstrucciones:\n\nNO USES ```, en ningún sitio\n\nCada grupo de citas debe comenzar con la línea:\n---\nseguida en la línea siguiente de:\n## Título\n(Este es un título genérico por ahora, ya será refinado más adelante)\n\nA continuación, incluye las citas del grupo tal como están (sin modificar su contenido).\n\nAl final del grupo, añade otra línea con:\n---\n\nMuy importante: Asegúrate de que los delimitadores --- estén separados del contenido por al menos una línea en blanco por arriba y por abajo, para evitar que el separador se confunda con la separación entre grupos.\n\nNo alteres el orden interno de las citas en cada grupo. No modifiques las citas.\n\nNo mezcles citas entre grupos ni los reorganices.\n\nNO USES ```, en ningún sitio"
+          "systemMessage": "Tarea:\nTengo varios grupos de citas agrupadas temáticamente. Ahora quiero formatearlas para que estén listas para convertirse en apuntes estructurados en Markdown.\n\nObjetivo:\n\nEncapsular correctamente cada grupo de citas con un formato uniforme que facilite su lectura y posterior transformación en apuntes temáticos.\n\nInstrucciones:\n\nCada grupo de citas debe comenzar con la línea:\n---\nseguida en la línea siguiente de:\n## Título\n(Este es un título genérico por ahora, ya será refinado más adelante)\n\nA continuación, incluye las citas del grupo tal como están (sin modificar su contenido).\n\nAl final del grupo, añade otra línea con:\n---\n\nMuy importante: Asegúrate de que los delimitadores --- estén separados del contenido por al menos una línea en blanco por arriba y por abajo, para evitar que el separador se confunda con la separación entre grupos.\n\nNo alteres el orden interno de las citas en cada grupo. No modifiques las citas.\n\nNo mezcles citas entre grupos ni los reorganices.\n\nNO USES ```, en ningún sitio"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -278,7 +278,7 @@
         "promptType": "define",
         "text": "={{ $json.output }}",
         "options": {
-          "systemMessage": "Tarea:\nTengo una lista de citas limpias extraídas de un libro. Estas citas ya han sido depuradas de texto irrelevante y fusionadas cuando era necesario. Ahora quiero agruparlas temáticamente para facilitar su organización en apuntes.\n\nObjetivo:\n\nAgrupar las citas por tema o idea principal, intentando mantener el orden original del texto cuando no entre en conflicto con la coherencia temática. Es decir:\n\nPrioriza que las citas que traten de lo mismo (o estén estrechamente relacionadas) estén juntas.\n\nSi dos citas están muy cerca en el texto y son temáticamente compatibles, mantenlas juntas.\n\nNo repitas ni mezcles citas entre grupos.\n\nInstrucciones:\n\nLee todas las citas y analiza sus temas principales.\n\nLas citas del mismo grupo se separan por 1 linea y los grupos se separa\npor 2 saltos de linea"
+          "systemMessage": "Tarea:\nTengo una lista de citas limpias extraídas de un libro. Estas citas ya han sido depuradas de texto irrelevante y fusionadas cuando era necesario. Ahora quiero agruparlas temáticamente para facilitar su organización en apuntes.\n\nObjetivo:\n\nAgrupar las citas por tema o idea principal, siguiendo el orden original del texto.\n\nPrioriza que las citas que traten de lo mismo (o estén estrechamente relacionadas) estén juntas.\n\nSi dos citas están muy cerca en el texto y son temáticamente compatibles, mantenlas juntas.\n\nNo repitas ni mezcles citas entre grupos.\n\nInstrucciones:\n\nLee todas las citas, analiza sus temas principales y agrupalas.\n\nNo fuerces la agrupación si no es natural, no hay necesidad de comprimir.\n\nLas citas del mismo grupo se separan por 1 linea y los grupos se separa\npor 2 saltos de linea"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -473,7 +473,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "624ccf44-cf26-4ed6-b316-267c08dcceff",
+  "versionId": "ebe617bc-7633-4e26-bfad-1876ee329c43",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e2805a53c8730c29339534a223849011ad9027364b262ad863f71ffca1d2ffe0"
