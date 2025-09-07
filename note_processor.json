@@ -6,252 +6,17 @@
         "promptType": "define",
         "text": "={{ $json.output }}",
         "options": {
-          "systemMessage": "Tarea:\nTengo varios grupos de citas ya organizadas temáticamente y encapsuladas con separadores ---. Cada grupo comienza con un marcador genérico ## Título.\n\nAhora quiero reemplazar ese marcador por un título breve, claro y temático que refleje con precisión la idea central del grupo.\n\nObjetivo:\n\nLeer las citas dentro de cada grupo y asignarles un título que resuma de forma concisa su contenido o tema principal. Este título debe servir como encabezado de una sección de apuntes.\n\nInstrucciones:\n\nPara cada grupo de citas (delimitado por ---), analiza su contenido y detecta la idea común que une esas citas.\n\nSustituye ## Título por un título temático que:\n\nSea breve y expresivo (idealmente entre 2 y 7 palabras).\n\nUse un estilo descriptivo, conceptual o técnico según el tono de las citas.\n\nEvite vaguedades como \"Reflexiones\" o \"Ideas generales\".\n\nEjemplos:\n\n\n## Learning is supposed to happen in students' heads\n\n> Art teachers usually let the advanced student paint, and then make suggestions on how they would have done it, or what might also be tried, more or less as the points arise in the student’s head—which is where the learning is supposed to occur!\n\n---\n\n## Luck favors the prepared mind\n\n> In this way I can illustrate how the individual’s preparation before encountering the problem can often lead to recognition, formulation, and solution. Great results in science and engineering are “bunched” in the same person too often for success to be a matter of random luck.\n\n> Louis Pasteur’s remark, “Luck favors the prepared mind.”\n\n---\n\n## “Style” is an art\n\n> Adding “style” to their education, which in practice is usually the difference between an average person and a great one.\n\n> Apparently an “art”— which almost by definition cannot be put into words—is probably best communicated by approaching it from many sides and doing so repeatedly, hoping thereby students will finally master enough of the art, or if you wish, style, to significantly increase their future contributions to society.\n\n---\n\n## Mecanismos de compromiso\n\n> Hugo confeccionó un extraño plan para vencer su postergación. Reunió toda su ropa y le pidió a un asistente que la guardara dentro de un gran baúl. Se quedó sin nada más que un gran chal. Sin tener ningún tipo de ropa para salir de casa, tuvo que permanecer en su estudio donde escribió furiosamente durante el otoño e invierno de 1830. 1 El jorobado de Nuestra Señora de París fue publicado dos semanas antes del plazo, el 14 de enero de 1831.\n> \n> Creando lo que los psicólogos llaman un mecanismo de compromiso.\n\n---\n\n---\n\n## Si no se dan cuenta, no se opondrán\n\n> Logra dominar el arte del juego indirecto, aprendiendo a seducir, encantar, engañar y maniobrar sutilmente a sus adversarios, accederá al pináculo del poder. Logrará que la gente se doblegue a su voluntad, sin darse cuenta de sus maniobras, y, al no darse cuenta, tampoco le opondrán resistencia ni alimentarán resentimiento contra usted.\n\n---\n\nNO USES ```, en ningún sitio"
+          "systemMessage": "Tarea:\nTengo una lista de citas limpias extraídas de un libro. Estas citas ya han sido depuradas de texto irrelevante y fusionadas cuando era necesario. Ahora quiero agruparlas temáticamente para facilitar su organización en apuntes.\n\nObjetivo:\n\nAgrupar las citas por tema o idea principal, siguiendo el orden original del texto.\n\nPrioriza que las citas que traten de lo mismo (o estén estrechamente relacionadas) estén juntas.\n\nSi dos citas están muy cerca en el texto y son temáticamente compatibles, mantenlas juntas.\n\nNo repitas ni mezcles citas entre grupos.\n\nInstrucciones:\n\nLee todas las citas, analiza sus temas principales y agrupalas.\n\nNo fuerces la agrupación si no es natural, no hay necesidad de comprimir.\n\nLas citas del mismo grupo se separan por 1 linea y los grupos se separa\npor 2 saltos de linea"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
-      "position": [
-        120,
-        200
-      ],
-      "id": "3683183a-432b-45ef-a17a-322b0666d9a1",
-      "name": "AI Agent"
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-2.0-flash",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        540,
-        100
-      ],
-      "id": "9fe250df-ab0d-4c9b-916b-37eb191933be",
-      "name": "Google Gemini Chat Model",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "aacVAnImOzAVPWtH",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-2.0-flash",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        140,
-        380
-      ],
-      "id": "c033f55f-56b2-4906-a59c-f49256f7d927",
-      "name": "Google Gemini Chat Model1",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "aacVAnImOzAVPWtH",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        880,
-        200
-      ],
-      "id": "c0f33fab-d457-448c-a858-712f15c13076",
-      "name": "Merge"
-    },
-    {
-      "parameters": {
-        "operation": "write",
-        "fileName": "/data/output",
-        "dataPropertyName": "=data",
-        "options": {
-          "append": true
-        }
-      },
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
-      "position": [
-        1320,
-        200
-      ],
-      "id": "85a8a864-53e4-4425-9c23-ba9f3a3470c5",
-      "name": "Read/Write Files from Disk1",
-      "alwaysOutputData": false
-    },
-    {
-      "parameters": {
-        "operation": "toText",
-        "sourceProperty": "output",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.convertToFile",
-      "typeVersion": 1.1,
-      "position": [
-        1100,
-        200
-      ],
-      "id": "b2fb3c6f-746b-451b-a6b8-55a29540a9c3",
-      "name": "Convert to File"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.output }}",
-        "options": {
-          "systemMessage": "# **Índice de enlaces internos para Obsidian**\n\nUna vez generadas todas las entradas:\n\n1. Recorre el documento generado **en orden** y detecta todos los títulos de nivel `##`.\n2. Por cada título, genera un ítem de lista con el formato:\n   `- [[#Título exactamente como aparece]]`\n3. **Mantén el orden** original en el que aparecen los títulos.\n4. **No modifiques los títulos**. Reproduce cada uno exactamente como está escrito.\n5. No añadas ningún contenido adicional, comentario ni explicación.\n\n**Formato obligatorio de salida al final del todo:**\n\n- [[#Título de la entrada 1]]\n- [[#Título de la entrada 2]]\n- [[#Título de la entrada 3]]\n...\n\\n\n---"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2,
-      "position": [
-        520,
-        -60
-      ],
-      "id": "c1f1d6f5-cd5a-4c30-a658-585ab7203109",
-      "name": "AI Agent1",
-      "notes": "This is the core concept collector. It moves the core concepts to the beginning of the file and links them to the original citations."
-    },
-    {
-      "parameters": {
-        "fileSelector": "/data/input",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.readWriteFile",
-      "typeVersion": 1,
-      "position": [
-        -1400,
-        200
-      ],
-      "id": "36692ed3-9350-497b-af72-506de52ea9d0",
-      "name": "Read/Write Files from Disk",
-      "alwaysOutputData": false,
-      "executeOnce": false,
-      "notesInFlow": false,
-      "notes": "Reads the raw notes taken by the user from the book."
-    },
-    {
-      "parameters": {
-        "operation": "text",
-        "destinationKey": "chatInput",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.extractFromFile",
-      "typeVersion": 1,
-      "position": [
-        -1180,
-        200
-      ],
-      "id": "361a2d32-b727-470c-8d39-d711720d9d25",
-      "name": "Extract from File"
-    },
-    {
-      "parameters": {
-        "command": "> /data/output"
-      },
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
-      "position": [
-        -1400,
-        0
-      ],
-      "id": "94b604c7-408d-4b42-a27a-0d915efdf6af",
-      "name": "Execute Command",
-      "notes": "Due to an implementation issue with the final 'Write to File' module (which writes two branches into a single file), we need to clear the output file before writing to it."
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -1620,
-        200
-      ],
-      "id": "9a97f35f-dd06-4ed6-8cf3-3d8f913ae4bb",
-      "name": "When clicking ‘Execute workflow’",
-      "notes": "Start."
-    },
-    {
-      "parameters": {
-        "options": {
-          "systemMessage": "Tarea:\nTengo una o más citas extraídas de un libro, copiadas desde un PDF y guardadas en Zotero. Estas citas a veces incluyen texto basura (como “Página X” o URLs promocionales como “www.lecturalandia.com”) y, en ocasiones, una única cita ha quedado separada en dos fragmentos consecutivos debido a un salto forzado por el formato del PDF.\n\nQuiero que:\n\nLimpia todo el texto eliminando restos irrelevantes (números de página, URLs, (Nombre, p. X)).\n\nDetecta si varias citas deberían ser una sola (por ejemplo, si son fragmentos que siguen en continuidad temática o gramatical, separados solo artificialmente).\n\nFusiones las citas separadas cuando tenga sentido, para que quede como una cita fluida, bien redactada y sin cortes abruptos.\n\nNo cambies las citas originales.\n\nDevuelvas el resultado como citas limpias separadas por 1 salto de linea cada una."
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2,
-      "position": [
-        -980,
-        200
-      ],
-      "id": "dfddf14c-873b-4eb6-859f-b0bd97abd6e7",
-      "name": "AI Agent2",
-      "alwaysOutputData": false
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-2.0-flash",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        -960,
-        380
-      ],
-      "id": "e12a65bb-2eeb-47b0-a608-1c2535c479d3",
-      "name": "Google Gemini Chat Model2",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "aacVAnImOzAVPWtH",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-2.0-flash",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
       "position": [
         -620,
-        380
-      ],
-      "id": "c2c0cc23-6c47-4508-89c7-9fd7745970b9",
-      "name": "Google Gemini Chat Model3",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "aacVAnImOzAVPWtH",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.output }}",
-        "options": {
-          "systemMessage": "Tarea:\nTengo varios grupos de citas agrupadas temáticamente. Ahora quiero formatearlas para que estén listas para convertirse en apuntes estructurados en Markdown.\n\nObjetivo:\n\nEncapsular correctamente cada grupo de citas con un formato uniforme que facilite su lectura y posterior transformación en apuntes temáticos.\n\nInstrucciones:\n\nCada grupo de citas debe comenzar con la línea:\n---\nseguida en la línea siguiente de:\n## Título\n(Este es un título genérico por ahora, ya será refinado más adelante)\n\nA continuación, incluye las citas del grupo tal como están (sin modificar su contenido).\n\nAl final del grupo, añade otra línea con:\n---\n\nMuy importante: Asegúrate de que los delimitadores --- estén separados del contenido por al menos una línea en blanco por arriba y por abajo, para evitar que el separador se confunda con la separación entre grupos.\n\nNo alteres el orden interno de las citas en cada grupo. No modifiques las citas.\n\nNo mezcles citas entre grupos ni los reorganices.\n\nNO USES ```, en ningún sitio"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 2,
-      "position": [
-        -260,
         200
       ],
-      "id": "a2e6d09d-58cd-4afc-90f7-30fdc1335e6c",
-      "name": "AI Agent4"
+      "id": "c53cfb57-d6d1-47f9-aa12-cbcc6b1bce78",
+      "name": "AI Agent3"
     },
     {
       "parameters": {
@@ -278,136 +43,361 @@
         "promptType": "define",
         "text": "={{ $json.output }}",
         "options": {
-          "systemMessage": "Tarea:\nTengo una lista de citas limpias extraídas de un libro. Estas citas ya han sido depuradas de texto irrelevante y fusionadas cuando era necesario. Ahora quiero agruparlas temáticamente para facilitar su organización en apuntes.\n\nObjetivo:\n\nAgrupar las citas por tema o idea principal, siguiendo el orden original del texto.\n\nPrioriza que las citas que traten de lo mismo (o estén estrechamente relacionadas) estén juntas.\n\nSi dos citas están muy cerca en el texto y son temáticamente compatibles, mantenlas juntas.\n\nNo repitas ni mezcles citas entre grupos.\n\nInstrucciones:\n\nLee todas las citas, analiza sus temas principales y agrupalas.\n\nNo fuerces la agrupación si no es natural, no hay necesidad de comprimir.\n\nLas citas del mismo grupo se separan por 1 linea y los grupos se separa\npor 2 saltos de linea"
+          "systemMessage": "Tarea:\nTengo varios grupos de citas agrupadas temáticamente. Ahora quiero formatearlas para que estén listas para convertirse en apuntes estructurados en Markdown.\n\nObjetivo:\n\nEncapsular correctamente cada grupo de citas con un formato uniforme que facilite su lectura y posterior transformación en apuntes temáticos.\n\nInstrucciones:\n\nCada grupo de citas debe comenzar con la línea:\n---\nseguida en la línea siguiente de:\n## Título\n(Este es un título genérico por ahora, ya será refinado más adelante)\n\nA continuación, incluye las citas del grupo tal como están (sin modificar su contenido).\n\nAl final del grupo, añade otra línea con:\n---\n\nPero ten en cuenta que si hay 2 citas juntas sus delimitadores --- se sumaran (cosa no deseada), en ese caso solo usa un --- para las ambas citas, siendo por lógica la cita inicial la que tendrá un --- de inicio para si sola y la cita final tendrá --- de cierre para si sola.\n\nMuy importante: Asegúrate de que los delimitadores --- estén separados del contenido por al menos una línea en blanco por arriba y por abajo, para evitar que el separador se confunda con la separación entre grupos.\n\nNo alteres el orden interno de las citas en cada grupo. No modifiques las citas.\n\nNo mezcles citas entre grupos ni los reorganices.\n\nNO USES ```, en ningún sitio, NO LO USES."
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2,
       "position": [
-        -620,
+        -260,
         200
       ],
-      "id": "c53cfb57-d6d1-47f9-aa12-cbcc6b1bce78",
-      "name": "AI Agent3"
+      "id": "a2e6d09d-58cd-4afc-90f7-30fdc1335e6c",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -620,
+        380
+      ],
+      "id": "c2c0cc23-6c47-4508-89c7-9fd7745970b9",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aacVAnImOzAVPWtH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        380
+      ],
+      "id": "e12a65bb-2eeb-47b0-a608-1c2535c479d3",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aacVAnImOzAVPWtH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Tarea:\nTengo una o más citas extraídas de un libro, copiadas desde un PDF y guardadas en Zotero. Estas citas a veces incluyen texto basura (como “Página X” o URLs promocionales como “www.lecturalandia.com”) y, en ocasiones, una única cita ha quedado separada en dos fragmentos consecutivos debido a un salto forzado por el formato del PDF.\n\nQuiero que:\n\nLimpia todo el texto eliminando restos irrelevantes (números de página, URLs, (Nombre, p. X)).\n\nDetecta si varias citas deberían ser una sola (por ejemplo, si son fragmentos que siguen en continuidad temática o gramatical, separados solo artificialmente).\n\nFusiones las citas separadas cuando tenga sentido, para que quede como una cita fluida, bien redactada y sin cortes abruptos.\n\nNo cambies las citas originales.\n\nDevuelvas el resultado como citas limpias separadas por 1 salto de linea cada una."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -980,
+        200
+      ],
+      "id": "dfddf14c-873b-4eb6-859f-b0bd97abd6e7",
+      "name": "AI Agent2",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1620,
+        200
+      ],
+      "id": "9a97f35f-dd06-4ed6-8cf3-3d8f913ae4bb",
+      "name": "When clicking ‘Execute workflow’",
+      "notes": "Start."
+    },
+    {
+      "parameters": {
+        "command": "> /data/output"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1400,
+        0
+      ],
+      "id": "94b604c7-408d-4b42-a27a-0d915efdf6af",
+      "name": "Execute Command",
+      "notes": "Due to an implementation issue with the final 'Write to File' module (which writes two branches into a single file), we need to clear the output file before writing to it."
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "destinationKey": "chatInput",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -1180,
+        200
+      ],
+      "id": "361a2d32-b727-470c-8d39-d711720d9d25",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/data/input",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -1400,
+        200
+      ],
+      "id": "36692ed3-9350-497b-af72-506de52ea9d0",
+      "name": "Read/Write Files from Disk",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "notesInFlow": false,
+      "notes": "Reads the raw notes taken by the user from the book."
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        140,
+        380
+      ],
+      "id": "c033f55f-56b2-4906-a59c-f49256f7d927",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aacVAnImOzAVPWtH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "Tarea:\nTengo varios grupos de citas ya organizadas temáticamente y encapsuladas con separadores ---. Cada grupo comienza con un marcador genérico ## Título.\n\nAhora quiero reemplazar ese marcador por un título breve, claro y temático que refleje con precisión la idea central del grupo.\n\nObjetivo:\n\nLeer las citas dentro de cada grupo y asignarles un título que resuma de forma concisa su contenido o tema principal. Este título debe servir como encabezado de una sección de apuntes.\n\nInstrucciones:\n\nPara cada grupo de citas (delimitado por ---), analiza su contenido y detecta la idea común que une esas citas.\n\nSustituye ## Título por un título temático que:\n\nSea breve y expresivo (idealmente entre 2 y 7 palabras).\n\nUse un estilo descriptivo, conceptual o técnico según el tono de las citas.\n\nEvite vaguedades como \"Reflexiones\" o \"Ideas generales\".\n\nEjemplos:\n\n\n## Learning is supposed to happen in students' heads\n\n> Art teachers usually let the advanced student paint, and then make suggestions on how they would have done it, or what might also be tried, more or less as the points arise in the student’s head—which is where the learning is supposed to occur!\n\n---\n\n## Luck favors the prepared mind\n\n> In this way I can illustrate how the individual’s preparation before encountering the problem can often lead to recognition, formulation, and solution. Great results in science and engineering are “bunched” in the same person too often for success to be a matter of random luck.\n\n> Louis Pasteur’s remark, “Luck favors the prepared mind.”\n\n---\n\n## “Style” is an art\n\n> Adding “style” to their education, which in practice is usually the difference between an average person and a great one.\n\n> Apparently an “art”— which almost by definition cannot be put into words—is probably best communicated by approaching it from many sides and doing so repeatedly, hoping thereby students will finally master enough of the art, or if you wish, style, to significantly increase their future contributions to society.\n\n---\n\n## Mecanismos de compromiso\n\n> Hugo confeccionó un extraño plan para vencer su postergación. Reunió toda su ropa y le pidió a un asistente que la guardara dentro de un gran baúl. Se quedó sin nada más que un gran chal. Sin tener ningún tipo de ropa para salir de casa, tuvo que permanecer en su estudio donde escribió furiosamente durante el otoño e invierno de 1830. 1 El jorobado de Nuestra Señora de París fue publicado dos semanas antes del plazo, el 14 de enero de 1831.\n> \n> Creando lo que los psicólogos llaman un mecanismo de compromiso.\n\n---\n\n---\n\n## Si no se dan cuenta, no se opondrán\n\n> Logra dominar el arte del juego indirecto, aprendiendo a seducir, encantar, engañar y maniobrar sutilmente a sus adversarios, accederá al pináculo del poder. Logrará que la gente se doblegue a su voluntad, sin darse cuenta de sus maniobras, y, al no darse cuenta, tampoco le opondrán resistencia ni alimentarán resentimiento contra usted.\n\n---\n\nNO USES ```, en ningún sitio"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        120,
+        200
+      ],
+      "id": "3683183a-432b-45ef-a17a-322b0666d9a1",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        520,
+        380
+      ],
+      "id": "c2ffcb25-b635-47eb-8921-0314c0598bd1",
+      "name": "Google Gemini Chat Model5",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aacVAnImOzAVPWtH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "Toma el siguiente texto y conviértelo en **apuntes universitarios en formato Markdown**, listos para usarse en **Obsidian**, siguiendo estas reglas:\n\n1. **Estructura**\n\n   * Respeta los títulos con el formato `## Título` y separa cada bloque con `---`.\n   * Usa `###` o listas cuando sea necesario para organizar subtemas.\n   * Los subtemas `###` o inferiores no necesitan --- separador entre el `##` y sus títulos inferiores, solo entre bloques de `##`\n   * No elimines secciones; sintetízalas en apuntes claros y jerárquicos.\n\n2. **Redacción**\n\n   * Estilo **claro, formal y profesional** (nivel universitario).\n   * Condensa ideas eliminando redundancias y adornos narrativos.\n   * Usa frases cortas y directas, en tercera persona.\n\n3. **Contenido**\n\n   * Expón definiciones, clasificaciones y procesos de manera rigurosa.\n   * Utiliza **listas** o numeraciones para categorías, pasos o características.\n   * Resalta términos o ideas clave en **negrita**.\n   * Si es necesario, incluye alguna **cita literal** del texto original en formato de Obsidian:\n\n     > Cita textual del libro.\n\n4. **Mejoras permitidas**\n\n   * Puedes reorganizar el contenido para mayor claridad lógica.\n   * Fusiona ideas repetitivas en una única formulación precisa.\n   * Incluye ejemplos breves y relevantes solo si aclaran un concepto.\n\n5. **Formato final**\n\n   * El resultado debe quedar como **apuntes de cátedra**: concisos pero completos.\n   * Usa siempre sintaxis Markdown compatible con **Obsidian**.\n   * La información debe quedar estructurada, fácil de repasar y sin pérdida conceptual.\n6. No uses ```, no es necesario.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        500,
+        200
+      ],
+      "id": "813cf34a-0339-448e-a273-7a8fddfee3c9",
+      "name": "AI Agent5"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        80
+      ],
+      "id": "00228169-62e4-49de-a4ea-d787f6766745",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aacVAnImOzAVPWtH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1520,
+        200
+      ],
+      "id": "7e3f2d15-57f7-44fe-b1c5-f6a0e8b84c97",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/data/output",
+        "dataPropertyName": "=data",
+        "options": {
+          "append": true
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1960,
+        200
+      ],
+      "id": "a787b052-479a-4439-9fb9-a6723512068e",
+      "name": "Read/Write Files from Disk1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1740,
+        200
+      ],
+      "id": "30c49789-7e40-4f87-832b-61bec3b26103",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "# **Índice de enlaces internos para Obsidian**\n\nUna vez generadas todas las entradas:\n\n1. Recorre el documento generado **en orden** y detecta todos los títulos de nivel `##` o inferiores.\n2. Por cada título, genera un ítem de lista con el formato:\n   `- [[#Título exactamente como aparece]]`\n      `- [[#Subtitulo exactamente como aparece]]`\n3. **Mantén el orden** original en el que aparecen los títulos.\n4. **No modifiques los títulos**. Reproduce cada uno exactamente como está escrito.\n5. No añadas ningún contenido adicional, comentario ni explicación.\n\n**Formato obligatorio de salida al final del todo:**\n\n- [[#Título de la entrada 1]]\n    - [[#Subtitulo de la entrada 1.1]]\n- [[#Título de la entrada 2]]\n- [[#Título de la entrada 3]]\n    - [[#Subtitulo de la entrada 3.1]]\n        - [[#Subtitulo de la entrada 3.2.1]]\n...\n---\n\\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        980,
+        -80
+      ],
+      "id": "55a59d23-eba8-4dec-bb51-e1f9fca7ac06",
+      "name": "AI Agent1",
+      "notes": "This is the core concept collector. It moves the core concepts to the beginning of the file and links them to the original citations."
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        -220
+      ],
+      "id": "ba9d040f-de75-4503-9117-74345d7e542b",
+      "name": "Google Gemini Chat Model6",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "aacVAnImOzAVPWtH",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.output }}",
+        "options": {
+          "systemMessage": "En base a los apuntes que te han sido pasados, quiero que generes las tags que llevara el archivo de obsidian que los contendrá. Quiero que el formato sea una lista de palabras espaciadas, listas para ser añadidas de un copia pega a la propiedad del archivo: Libro TAG2 TAG3...\n\\n\nNota que siempre la primera tag sera \"Libro\" y acabaras la lista con un salto de linea y que el estilo de nombrado de las tags es kebab case: Método-de-XXX, Lectura-Rápida, etc."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        980,
+        -380
+      ],
+      "id": "4b69e998-6996-42a4-9a88-c9de2a787870",
+      "name": "AI Agent6",
+      "notes": "This is the core concept collector. It moves the core concepts to the beginning of the file and links them to the original citations."
     }
   ],
   "pinData": {},
   "connections": {
-    "Google Gemini Chat Model": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent1",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "AI Agent": {
+    "AI Agent3": {
       "main": [
         [
           {
-            "node": "Merge",
-            "type": "main",
-            "index": 1
-          },
-          {
-            "node": "AI Agent1",
+            "node": "AI Agent4",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Google Gemini Chat Model1": {
-      "ai_languageModel": [
+    "AI Agent4": {
+      "main": [
         [
           {
             "node": "AI Agent",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Convert to File": {
-      "main": [
-        [
-          {
-            "node": "Read/Write Files from Disk1",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "Convert to File",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "AI Agent1": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Read/Write Files from Disk": {
-      "main": [
-        [
-          {
-            "node": "Extract from File",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Read/Write Files from Disk",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Execute Command",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Google Gemini Chat Model2": {
+    "Google Gemini Chat Model4": {
       "ai_languageModel": [
         [
           {
-            "node": "AI Agent2",
+            "node": "AI Agent4",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Extract from File": {
-      "main": [
-        [
-          {
-            "node": "AI Agent2",
-            "type": "main",
             "index": 0
           }
         ]
@@ -435,33 +425,169 @@
         ]
       ]
     },
-    "Google Gemini Chat Model4": {
+    "Google Gemini Chat Model2": {
       "ai_languageModel": [
         [
           {
-            "node": "AI Agent4",
+            "node": "AI Agent2",
             "type": "ai_languageModel",
             "index": 0
           }
         ]
       ]
     },
-    "AI Agent4": {
+    "When clicking ‘Execute workflow’": {
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Read/Write Files from Disk",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "AI Agent3": {
+    "Extract from File": {
       "main": [
         [
           {
-            "node": "AI Agent4",
+            "node": "AI Agent2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent5",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Agent6",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent6",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent6": {
+      "main": [
+        [
+          {
+            "node": "Merge",
             "type": "main",
             "index": 0
           }
@@ -473,7 +599,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ebe617bc-7633-4e26-bfad-1876ee329c43",
+  "versionId": "73f4058e-302d-47fa-bf20-88911f6cad82",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e2805a53c8730c29339534a223849011ad9027364b262ad863f71ffca1d2ffe0"
